@@ -1,18 +1,22 @@
 import React from 'react';
 
-function ProductList({ products, onProductCheck }) {
+function ProductList({ products, handleProductSelect,selectedProduct }) {
     return (
         <div>
-            <h2>List of products</h2>
+            <h1>Choose product:</h1>
             <ul>
                 {products.map((product) => (
                     <li key={product.id}>
-                        <input
-                            type="checkbox"
-                            checked={product.isChecked}
-                            onChange={() => onProductCheck(product.id)}
-                        />
-                        {product.name}
+                        <label>
+                            <input
+                                type="radio"
+                                name="product"
+                                value={product.id}
+                                checked={selectedProduct?.id === product.id}
+                                onChange={() => handleProductSelect(product.id)}
+                            />
+                            {product.name}
+                        </label>
                     </li>
                 ))}
             </ul>

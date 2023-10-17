@@ -3,27 +3,35 @@ import Body from './components/Body';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
 import ProductList from './components/ProductsList';
+import ProductPage from './pages/ProductPage';
 import './App.css';
-import { useState,useCallback  } from 'react';
+import { useState  } from 'react';
 function App() {
-  const [items, setItems] = useState([
-    { id: 1, name: 'product 1', isChecked: false },
-    { id: 2, name: 'product 2', isChecked: false },
-    { id: 3, name: 'product 3', isChecked: false },
-  ]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [comments, setComments] = useState([]);
+
+  const products = [
+    { id: 1, name: 'product 1', description:"Description 1", price:222 },
+    { id: 2, name: 'product 2', description:"Description 2", price:333 },
+    { id: 3, name: 'product 3', description:"Description 3", price:444 },
+  ];
+  const exchangeRate = 36;
   const [isLogged, setIsLogged] = useState(false);
 
-  const handleCheckboxChange = (itemId) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId ? { ...item, isChecked: !item.isChecked } : item
-      )
-    );
+  const handleProductSelect = (productId) => {
+    setSelectedProduct(products.find((product) => product.id === productId));
   };
 
-  const calculateSelectedProductCount = useCallback(() => {
-    return items.filter((item) => item.isChecked).length;
-  }, [items]);
+  const handleCommentAdd = (comment) => {
+    setComments([...comments, comment]);
+  };
+
+  const convertPriceToUSD = () => {
+    if (selectedProduct && !isNaN(selectedProduct.price) && !isNaN(exchangeRate)) {
+      const priceInUSD = selectedProduct.price / exchangeRate;
+      setSelectedProduct({ ...selectedProduct, priceInUSD: priceInUSD.toFixed(2) });
+    }
+  };
 
 
   const toggleLogin = () => {
@@ -37,11 +45,21 @@ function App() {
 
       <Menu isLogged={isLogged} toggleLogin={toggleLogin}/>
 
-      <ProductList products={items} onProductCheck={handleCheckboxChange} />
+      <ProductList products={products} handleProductSelect={handleProductSelect} selectedProduct={selectedProduct} />
+
+      {selectedProduct && (
+        <ProductPage
+          product={selectedProduct}
+          comments={comments}
+          onCommentAdd={handleCommentAdd}
+          exchangeRate={exchangeRate}
+          convertPriceToUSD={convertPriceToUSD}
+        />
+      )}
 
       <Body />
 
-      <Footer selectedProductCount={calculateSelectedProductCount()}/>
+      <Footer/>
 
     </div>
   );

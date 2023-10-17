@@ -1,7 +1,6 @@
-function Footer({ selectedProductCount }) {
+function Footer() {
     return (
         <footer>
-            <p>Number of picked products: {selectedProductCount}</p>
         </footer>
     )
 };
