@@ -1,8 +1,8 @@
-function Footer() {
+function Footer({ selectedProductCount }) {
     return (
-        <h3>
-            Hello World3!
-        </h3>
+        <footer>
+            <p>Number of picked products: {selectedProductCount}</p>
+        </footer>
     )
 };
 export default Footer;

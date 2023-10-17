@@ -1,11 +1,14 @@
-
-function Header() {
+function Header({ isLogged, toggleLogin }) {
     return (
-        <h1>
-            Hello World!
-        </h1>
+        <header>
+            <h1>
+                Header
+            </h1>
+            <button className='button-enter' onClick={toggleLogin}>
+                {isLogged ? 'Login' : 'Logout'}
+            </button>
+        </header>
     )
 };
-
 
 export default Header;
