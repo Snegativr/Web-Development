@@ -1,11 +1,21 @@
+import React from 'react';
+import { useUserContext } from '../context/UserContext';
 
-function Header() {
+function Header({ isLogged, toggleLogin }) {
+    const { user, logout } = useUserContext();
+
     return (
-        <h1>
-            Hello World!
-        </h1>
-    )
-};
-
+        <div>
+            {user ? (
+                <div>
+                    <p>Вітаємо, {user.username}!</p>
+                    <button onClick={logout}>Вийти</button>
+                </div>
+            ) : (
+                <button onClick={toggleLogin}>Увійти</button>
+            )}
+        </div>
+    );
+}
 
 export default Header;

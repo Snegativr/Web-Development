@@ -1,7 +1,7 @@
 function Body() {
     return (
         <h2>
-            Hello World2!
+            Body
         </h2>
     )
 };
