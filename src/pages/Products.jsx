@@ -46,7 +46,7 @@ const Products = () => {
             <TransitionGroup className="list">
                 <Row gutter={[16, 16]}>
                     {products.map((product) => (
-                        <CSSTransition key={product.id} timeout={500} classNames="item">
+                        <CSSTransition key={product.id} timeout={5000} classNames="item">
                             <Col xs={24} sm={getColumnSpan()} key={product.id}>
                                 <Card
                                     hoverable
