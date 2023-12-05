@@ -7,12 +7,14 @@ const productSlice = createSlice({
     },
     reducers: {
         addData: (state, action) => {
+            console.log('State before adding data:', state);
             state.data.push(action.payload);
-            state.filteredData = state.data;
+            console.log('State after adding data:', state);
         },
         removeData: (state, action) => {
+            console.log('State before removing data:', state);
             state.data = state.data.filter(item => item.id !== action.payload);
-            state.filteredData = state.data;
+            console.log('State after removing data:', state);
         },
 
     },
